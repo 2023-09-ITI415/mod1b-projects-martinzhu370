@@ -27,6 +27,22 @@ public class AppleTree : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x += speed * Time.deltaTime;
         transform.position = pos;
-        
+        //changing direction
+        if (pos.x < -leftAndRightEdge) {
+            speed = Mathf.Abs(speed); //Move right
+        }
+
+        else if (pos.x > leftAndRightEdge) {
+            speed = -Mathf.Abs(speed);
+        }
+
+
+    }
+
+    void FixedUpdate() {
+        if (Random.value < changeToChangeDirection) {
+            speed *= -1;
+        }
+
     }
 }
