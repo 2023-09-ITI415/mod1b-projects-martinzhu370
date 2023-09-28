@@ -9,8 +9,8 @@ public class AppleTree : MonoBehaviour
     public GameObject applePrefab;
     public float speed = 1f;
     public float leftAndRightEdge = 10f;
-    public float changeToChangeDirection;
-    public float secondsBetweenAppleDrops; 
+    public float changeToChangeDirection = 0.1f;
+    public float secondsBetweenAppleDrops = 1f; 
 
 
 
@@ -18,13 +18,14 @@ public class AppleTree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("DropApple", 2f, secondsBetweenAppleDrops);
+        Invoke("DropApple", 2f);
     }
 
     void DropApple() {
 
         GameObject apple = Instantiate(applePrefab) as GameObject;
         apple.transform.position = transform.position;
+        Invoke("DropApple", secondsBetweenAppleDrops);
     }    
 
 
