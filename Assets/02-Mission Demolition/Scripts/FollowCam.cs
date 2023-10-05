@@ -9,7 +9,7 @@ public class FollowCam : MonoBehaviour
     public float easing = 0.05f;   
     public Vector2 minXY;
     public bool __________________________________;
-    public GameObject poi;
+    public GameObject POI;
     public float camZ;
     void Awake(){
         S = this;
@@ -20,19 +20,26 @@ public class FollowCam : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(poi == null)
-            return;
+        Vector3 destination;
+        // If there is no poi, return to P:[ 0, 0, 0 ]
+        if (POI ==null ) {
+            destination =Vector3.zero;
+        }else {
+            // Get the position of the poi
+            destination = POI.transform.position;
+            // If poi is a Projectile, check to see if it's at rest
+            if (POI.tag == "Projectile" ) {
+            // if it is sleeping (that is, not moving)
+            if ( POI.GetComponent<Rigidbody>().IsSleeping() ) {
+            // return to default view
+            POI =null ;
+            // in the next update
+            return ;
+            }
+            }
+        }
 
-        Vector3 destination = poi.transform.position;
-        // Limit the X & Y to minimum values
-        destination.x = Mathf.Max( minXY.x, destination.x );
-        destination.y = Mathf.Max( minXY.y, destination.y );
 
-        // Interpolate from the current Camera position toward destination
-        destination = Vector3.Lerp(transform.position, destination, easing);
-        destination.z = camZ;
-        transform.position = destination; 
-        // Set the orthographicSize of the Camera to keep Ground in view
         this.GetComponent<Camera>().orthographicSize = destination.y + 10;
 
     }
