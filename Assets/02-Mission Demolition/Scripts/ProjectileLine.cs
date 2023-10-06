@@ -79,9 +79,9 @@ return ( points[points.Count-1] );
 void FixedUpdate () {
 if ( poi == null ) {
 // If there is no poi, search for one
-if (FollowCam.POI != null ) {
-if (FollowCam.POI.tag == "Projectile" ) {
-poi = FollowCam.POI;
+if (FollowCam.S.POI != null ) {
+if (FollowCam.S.POI.tag == "Projectile" ) {
+poi = FollowCam.S.POI;
 }else {
 return; // Return if we didn't find a poi
 }
@@ -91,7 +91,7 @@ return; // Return if we didn't find a poi
 }
 // If there is a poi, it's loc is added every FixedUpdate
 AddPoint();
-if (FollowCam.POI == null ) {
+if (FollowCam.S.POI == null ) {
 // Once FollowCam.POI is null, make the local poi nulll too
 poi = null;
 }

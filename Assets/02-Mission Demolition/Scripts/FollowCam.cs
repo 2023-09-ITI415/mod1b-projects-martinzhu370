@@ -39,6 +39,10 @@ public class FollowCam : MonoBehaviour
             }
         }
 
+        destination.x = Mathf.Max( minXY.x, destination.x );
+        destination.y = Mathf.Max(minXY.y, destination.y);
+        destination.z = camZ;
+        transform.position = destination;
 
         this.GetComponent<Camera>().orthographicSize = destination.y + 10;
 
